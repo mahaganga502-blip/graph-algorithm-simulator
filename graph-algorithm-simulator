@@ -1,0 +1,61 @@
+from collections import deque
+graph = {
+    'A': ['B', 'C'],
+    'B': ['A', 'D', 'E'],
+    'C': ['A', 'F'],
+    'D': ['B'],
+    'E': ['B', 'F'],
+    'F': ['C', 'E']
+}
+def bfs(start):
+    visited = set()
+    queue = deque([start])
+    order = []
+    visited.add(start)
+    while queue:
+        vertex = queue.popleft()
+        order.append(vertex)
+        print("Visiting:", vertex)
+        for neighbor in graph[vertex]:
+            if neighbor not in visited:
+                visited.add(neighbor)
+                queue.append(neighbor)
+    return order
+print("================================")
+print("      GRAPH ALGORITHM SIMULATOR")
+print("================================")
+print("\nGraph:")
+for vertex in graph:
+    print(vertex, "->", graph[vertex])
+start = input("\nEnter starting vertex: ").upper()
+if start in graph:
+    print("\nBFS Traversal:")
+    result = bfs(start)
+    print("\nTraversal Order:", " -> ".join(result))
+else:
+    print("Invalid starting vertex.")
+
+OUTPUT:
+================================
+      GRAPH ALGORITHM SIMULATOR
+================================
+
+Graph:
+A -> ['B', 'C']
+B -> ['A', 'D', 'E']
+C -> ['A', 'F']
+D -> ['B']
+E -> ['B', 'F']
+F -> ['C', 'E']
+
+Enter starting vertex: A
+
+BFS Traversal:
+Visiting: A
+Visiting: B
+Visiting: C
+Visiting: D
+Visiting: E
+Visiting: F
+
+Traversal Order: A -> B -> C -> D -> E -> F
